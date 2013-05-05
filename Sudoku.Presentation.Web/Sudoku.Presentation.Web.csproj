@@ -270,6 +270,14 @@
       <Project>{b3067771-f449-44e1-9da8-9e1f106008bd}</Project>
       <Name>Sudoku.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sudoku.Data.EntityFramework\Sudoku.Data.EntityFramework.csproj">
+      <Project>{0aa29802-5491-4bd1-b278-705288d9aa07}</Project>
+      <Name>Sudoku.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sudoku.Data\Sudoku.Data.csproj">
+      <Project>{4c2cf9e6-584c-4235-a755-6997b01a8443}</Project>
+      <Name>Sudoku.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sudoku.Domain\Sudoku.Domain.csproj">
       <Project>{7c30e6c4-c2cb-40a8-9656-32335a3f3fda}</Project>
       <Name>Sudoku.Domain</Name>
@@ -308,8 +316,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>start /MIN xcopy /y "$(SolutionDir)Sudoku.Data\bin\$(ConfigurationName)\*.*" "$(TargetDir)"
-start /MIN xcopy /y "$(SolutionDir)Sudoku.Data.EntityFramework\bin\$(ConfigurationName)\*.*" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
