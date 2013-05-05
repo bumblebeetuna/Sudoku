@@ -1,0 +1,94 @@
+﻿@model Sudoku.Domain.Game
+
+<div class="container">
+    @foreach (var row in Enumerable.Range(0, 9).Select(x => Model.GetRow(x)))
+    {
+        <div class="row sudoku-row">
+            @foreach (var item in row)
+            {
+                <div class="span1 sudoku-item">
+                    @if (item.Generated)
+                    {
+                        <text>@item.Value.Value</text>
+                    }
+                    else 
+                    {
+                        <a href="@item.Id" class="btn move">
+                            @if (item.Value.HasValue)
+                            {
+                                @item.Value
+                            }
+                            else
+                            {
+                                <text>&nbsp;</text>
+                            }
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (Model.IsComplete)
+{
+    <img src="~/Images/nothing-to-do-here.jpg" />
+}
+
+<div id="moveModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 id="moveModalLabel">Pick a move!</h3>
+    </div>
+    <div class="modal-body">
+        <div data-bind="ifnot: Moves">
+            Loading...
+        </div>
+        <div class="move-grid" data-bind="foreach: Moves">
+            <a href="#" data-bind="attr: { href: '/Home/MakeMove?gameId='+ $parent.GameId +'&moveId=' + $parent.MoveId + '&value='+ Value }, text: Value, style: { visibility: Enabled ? 'visible' : 'hidden' }" class="btn"></a>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function PlayViewModel() {
+            var self = this;
+
+            self.GameId = "@Model.Id";
+            self.MoveId = "";
+            self.Moves = ko.observableArray();
+
+            self.ChooseMove = function (id) {
+                self.Moves([]);
+
+                var jqxhr = $.getJSON("/Home/moves?gameId=@Model.Id&moveId=" + id, function (data, status, xhr) {
+                    self.MoveId = id;
+                    self.Moves(data);
+                    
+                    $("#moveModal").modal();
+                })
+                .fail(function() {
+                    alert("error");
+                });
+            };
+        }
+
+        var vm = new PlayViewModel();
+
+        ko.applyBindings(vm);
+
+        $("a.move").each(function (index, element) {
+            $(element).click(function (e) {
+                var id = $(element).attr("href");
+
+                vm.ChooseMove(id);
+
+                e.preventDefault();
+            });
+        });
+    </script>
+}
