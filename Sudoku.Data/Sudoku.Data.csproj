@@ -53,6 +53,7 @@
     <Compile Include="FindGamesHandler.cs" />
     <Compile Include="GameMoveRecord.cs" />
     <Compile Include="GameRecord.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="LoadGameHandler.cs" />
     <Compile Include="MakeMoveHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
