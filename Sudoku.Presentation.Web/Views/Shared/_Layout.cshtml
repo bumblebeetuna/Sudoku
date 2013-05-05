@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+@* http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ *@
+<!--[if IE 8]>    <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+    <title>Sudoku!</title>
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @* http://paulirish.com/2009/avoiding-the-fouc-v3/ *@
+    @* Replaces "no-js" class with "js" class on html tag *@
+    <script>(function (H) { H.className = H.className.replace(/\bno-js\b/, 'js') })(document.documentElement)</script>
+
+    @* IE Fix for HTML5 Tags *@
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    @if (Html.IsDebug())
+    {
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/master.css" rel="stylesheet" />
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    }
+    else 
+    {
+        @Styles.Render("~/bundles/css")
+        <script src="~/Scripts/modernizr-2.6.2.min.js"></script>
+    }
+</head>
+<body class="container">
+    <!--[if lt IE 9]> <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p> <![endif]-->
+
+    <h1>
+        @Html.ActionLink("Sudoku!", "Index")
+        <small>by bumblebeetuna (aka Wes Harris)</small>    
+    </h1>
+
+    <hr />
+    
+    @RenderBody()
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/Scripts/jquery-1.9.1.min.js"><\/script>')</script>
+    @Scripts.Render("~/bundles/scripts")
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

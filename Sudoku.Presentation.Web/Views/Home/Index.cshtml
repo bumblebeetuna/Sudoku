@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Sudoku.Domain.GameInfo>
+
+<h2>
+    Existing Games
+</h2>
+
+@Html.ValidationSummary()
+
+@if(Model.Any()) 
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    Created On
+                </td>
+                <td class="text-right">
+                    % Complete
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model.OrderByDescending(x => x.CreatedOn)) 
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(game.CreatedOn.ToLongDateString() + " " + game.CreatedOn.ToShortTimeString(), "Play", new { id = game.Id })
+                    </td>
+                    <td class="text-right">
+                        @game.PercentageComplete
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>
+        You haven't played any games! Come on, play one, it'll be fun!
+    </p>
+}
+    
+@using (Html.BeginForm("NewGame","Home"))
+{
+    <input type="submit" class="btn btn-primary" value="New Game!" />
+}
+
+@section Scripts {
+    <script>
+        function IndexViewModel() {
+            var self = this;
+
+            
+        };
+
+        ko.applyBindings(new IndexViewModel());
+    </script>
+}
