@@ -50,6 +50,15 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc4.3.0.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.0.0-alpha3\lib\net40\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.1\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
@@ -61,7 +70,14 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.0.0-alpha3\lib\net40\System.Data.SqlServerCe.Entity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -216,6 +232,22 @@
     </Content>
     <Content Include="Content\bootstrap.less" />
     <Content Include="Content\master.less" />
+    <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceer40EN.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlcecompact40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\sqlceca40.dll" />
+    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\README_ENU.txt" />
+    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\msvcr90.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlcese40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceqp40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceme40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceer40EN.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlcecompact40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\sqlceca40.dll" />
+    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
+    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -257,6 +289,8 @@
       <DependentUpon>modernizr-2.6.2.js</DependentUpon>
     </Content>
     <Content Include="Views\Home\Play.cshtml" />
+    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
+    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Filters\" />
@@ -269,6 +303,14 @@
     <ProjectReference Include="..\Sudoku.Application\Sudoku.Application.csproj">
       <Project>{b3067771-f449-44e1-9da8-9e1f106008bd}</Project>
       <Name>Sudoku.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sudoku.Data.EntityFramework\Sudoku.Data.EntityFramework.csproj">
+      <Project>{0aa29802-5491-4bd1-b278-705288d9aa07}</Project>
+      <Name>Sudoku.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sudoku.Data\Sudoku.Data.csproj">
+      <Project>{4c2cf9e6-584c-4235-a755-6997b01a8443}</Project>
+      <Name>Sudoku.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sudoku.Domain\Sudoku.Domain.csproj">
       <Project>{7c30e6c4-c2cb-40a8-9656-32335a3f3fda}</Project>
@@ -308,8 +350,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y $(SolutionDir)Sudoku.Data\bin\$(ConfigurationName)\*.*
-xcopy /y $(SolutionDir)Sudoku.Data.EntityFramework\bin\$(ConfigurationName)\*.*</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -318,4 +360,14 @@ xcopy /y $(SolutionDir)Sudoku.Data.EntityFramework\bin\$(ConfigurationName)\*.*<
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+    <Target Name="AfterBuild">
+        <CallTarget Targets="CopyNatives" />
+    </Target>
+    <Target Name="CopyNatives">
+        <Exec Command="if not exist  &quot;$(TargetDir)_PublishedWebsites\Sudoku.Presentation.Web\bin\x86 &quot; md  &quot;$(TargetDir)_PublishedWebsites\Sudoku.Presentation.Web\bin\x86&quot;" />
+        <Exec Command="xcopy /s /y &quot;$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*&quot; &quot;$(TargetDir)_PublishedWebsites\Sudoku.Presentation.Web\bin\x86&quot;" />
+        <Exec Command="if not exist &quot;$(TargetDir)_PublishedWebsites\Sudoku.Presentation.Web\bin\amd64&quot; md &quot;$(TargetDir)_PublishedWebsites\Sudoku.Presentation.Web\bin\amd64&quot;" />
+        <Exec Command="xcopy /s /y &quot;$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*&quot; &quot;$(TargetDir)_PublishedWebsites\Sudoku.Presentation.Web\bin\amd64 &quot;" />
+        <Warning Text="Natives copied" />
+    </Target>
 </Project>

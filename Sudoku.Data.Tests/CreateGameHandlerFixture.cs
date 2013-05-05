@@ -44,7 +44,6 @@ namespace Sudoku.Data.Tests
 
                 Assert.IsNotNull(addItem);
                 Assert.AreEqual(9 * 9, addItem.Moves.Count());
-                Assert.AreEqual(17, addItem.Moves.Where(y => y.Value.HasValue).Count());
             });
 
             var command = new CreateGame(Guid.NewGuid());
