@@ -308,8 +308,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y $(SolutionDir)Sudoku.Data\bin\$(ConfigurationName)\*.*
-xcopy /y $(SolutionDir)Sudoku.Data.EntityFramework\bin\$(ConfigurationName)\*.*</PostBuildEvent>
+    <PostBuildEvent>start /MIN xcopy /y "$(SolutionDir)Sudoku.Data\bin\$(ConfigurationName)\*.*" "$(TargetDir)"
+start /MIN xcopy /y "$(SolutionDir)Sudoku.Data.EntityFramework\bin\$(ConfigurationName)\*.*" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
