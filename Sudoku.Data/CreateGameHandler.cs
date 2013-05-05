@@ -41,19 +41,18 @@ namespace Sudoku.Data
                 }).ToList(),
             };
 
-            var game = LoadGameHandler.Create(gameRecord);
             var random = new Random();
 
             foreach (var i in Enumerable.Range(0, 17))
             {
-                var gameMove = game.Moves[random.Next(9 * 9)];
-                for (; gameMove.PossibleValues(game).Any(); gameMove = game.Moves[random.Next(9 * 9)]) ;
+                var game = LoadGameHandler.Create(gameRecord);
+                var emptyMoves = game.Moves.Where(x => !x.Value.HasValue).ToList();
+                var gameMove = emptyMoves[random.Next(emptyMoves.Count)];
+                for (; !gameMove.PossibleValues(game).Any(); gameMove = game.Moves[random.Next(9 * 9)]) ;
 
                 var gameMoveRecord = gameRecord.Moves.First(x => x.Id == gameMove.Id);
                 var possibleValues = gameMove.PossibleValues(game).ToList();
-                gameMoveRecord.Value = possibleValues.Skip(random.Next(possibleValues.Count)).First();
-
-                game = LoadGameHandler.Create(gameRecord);
+                gameMoveRecord.Value = possibleValues[random.Next(possibleValues.Count)];
             }
 
             repo.Add(gameRecord);

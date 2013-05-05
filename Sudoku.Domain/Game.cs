@@ -78,7 +78,7 @@ namespace Sudoku.Domain
             Contract.Ensures(Contract.Result<IEnumerable<GameMove>>() != null);
 
             return Moves
-                .Where((x, i) => i % column == 0)
+                .Where(x => x.Y == column)
                 .Take(9)
                 .ToList()
                 .AsReadOnly();

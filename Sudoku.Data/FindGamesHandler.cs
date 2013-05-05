@@ -27,7 +27,7 @@ namespace Sudoku.Data
         public override IEnumerable<GameInfo> Execute(FindGames query)
         {
             return repo.Query<GameRecord>()
-                .Select(x => new { x.Id, x.CreatedOn, PercentageComplete = x.Moves.Count(y => y.Value.HasValue) / x.Moves.Count() })
+                .Select(x => new { x.Id, x.CreatedOn, PercentageComplete = x.Moves.Count(y => y.Value.HasValue) * 100 / x.Moves.Count() })
                 .ToList()
                 .Select(x => new GameInfo(x.Id, x.CreatedOn, x.PercentageComplete))
                 .ToList();
