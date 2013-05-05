@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using Sudoku.Application;
 
@@ -32,6 +33,11 @@ namespace Sudoku.Data
             if (moveRecord == null)
             {
                 throw new EntityNotFoundException();
+            }
+
+            if (moveRecord.Generated)
+            {
+                throw new InvalidOperationException("Cannot change a generated move's value");
             }
 
             moveRecord.Value = command.Value;

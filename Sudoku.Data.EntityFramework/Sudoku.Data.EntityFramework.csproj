@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="EntityFrameworkModule.cs" />
     <Compile Include="EntityFrameworkRepository.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SudokuDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SudokuDbContext.cs" />

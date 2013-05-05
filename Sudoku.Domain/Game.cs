@@ -29,6 +29,14 @@ namespace Sudoku.Domain
         /// </value>
         public IList<GameMove> Moves { get; private set; }
 
+        public bool IsComplete
+        {
+            get
+            {
+                return Moves.All(x => x.Value.HasValue);
+            }
+        }
+
         /// <summary>
         /// Gets the block.
         /// </summary>
@@ -42,7 +50,7 @@ namespace Sudoku.Domain
             Contract.Ensures(Contract.Result<IEnumerable<GameMove>>() != null);
 
             return Moves
-                .Where(x => x.X / 3 * 3 + x.Y / 3 * 3 == block)
+                .Where(x => x.X / 3 + x.Y / 3 * 3 == block)
                 .Take(9)
                 .ToList()
                 .AsReadOnly();
@@ -60,8 +68,11 @@ namespace Sudoku.Domain
             Contract.Ensures(Contract.Result<IEnumerable<GameMove>>() != null);
 
             return Moves
+                .OrderBy(x => x.Y)
+                .ThenBy(x => x.X)
                 .Skip(row * 9)
                 .Take(9)
+                .OrderBy(x => x.X)
                 .ToList()
                 .AsReadOnly();
         }
@@ -78,8 +89,9 @@ namespace Sudoku.Domain
             Contract.Ensures(Contract.Result<IEnumerable<GameMove>>() != null);
 
             return Moves
-                .Where(x => x.Y == column)
+                .Where(x => x.X == column)
                 .Take(9)
+                .OrderBy(x => x.Y)
                 .ToList()
                 .AsReadOnly();
         }

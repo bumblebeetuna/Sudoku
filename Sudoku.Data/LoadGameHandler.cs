@@ -38,7 +38,7 @@ namespace Sudoku.Data
 
         public static Game Create(GameRecord gameRecord)
         {
-            return new Game(gameRecord.Id, gameRecord.Moves.Select(x => new GameMove(x.Id, x.X, x.Y, x.Value)));
+            return new Game(gameRecord.Id, gameRecord.Moves.Select(x => new GameMove(x.Id, x.X, x.Y, x.Value, x.Generated)));
         }
     }
 }

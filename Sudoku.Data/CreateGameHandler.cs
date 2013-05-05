@@ -43,7 +43,7 @@ namespace Sudoku.Data
 
             var random = new Random();
 
-            foreach (var i in Enumerable.Range(0, 17))
+            foreach (var i in Enumerable.Range(0, 27))
             {
                 var game = LoadGameHandler.Create(gameRecord);
                 var emptyMoves = game.Moves.Where(x => !x.Value.HasValue).ToList();
@@ -53,6 +53,7 @@ namespace Sudoku.Data
                 var gameMoveRecord = gameRecord.Moves.First(x => x.Id == gameMove.Id);
                 var possibleValues = gameMove.PossibleValues(game).ToList();
                 gameMoveRecord.Value = possibleValues[random.Next(possibleValues.Count)];
+                gameMoveRecord.Generated = true;
             }
 
             repo.Add(gameRecord);

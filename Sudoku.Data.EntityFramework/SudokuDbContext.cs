@@ -11,5 +11,6 @@ namespace Sudoku.Data.EntityFramework
         }
 
         public DbSet<GameRecord> Games { get; set; }
+        public DbSet<GameMoveRecord> GameMoves { get; set; }
     }
 }

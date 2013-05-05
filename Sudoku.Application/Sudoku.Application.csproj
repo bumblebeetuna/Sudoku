@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationModule.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Domain.cs" />
     <Compile Include="DomainFactory.cs" />

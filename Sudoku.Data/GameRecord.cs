@@ -4,6 +4,6 @@ namespace Sudoku.Data
 {
     public sealed class GameRecord : Record
     {
-        public IEnumerable<GameMoveRecord> Moves { get; set; }
+        public ICollection<GameMoveRecord> Moves { get; set; }
     }
 }

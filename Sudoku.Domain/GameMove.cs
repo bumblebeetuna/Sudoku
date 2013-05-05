@@ -8,6 +8,7 @@ namespace Sudoku.Domain
     /// <summary>
     /// 
     /// </summary>
+    [System.Diagnostics.DebuggerDisplay("({X},{Y}): {Value}")]
     public sealed class GameMove : Entity
     {
         /// <summary>
@@ -17,7 +18,7 @@ namespace Sudoku.Domain
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="value">The value.</param>
-        public GameMove(Guid id, int x, int y, int? value)
+        public GameMove(Guid id, int x, int y, int? value, bool generated = false)
         {
             Contract.Requires(x >= 0 && x < 9);
             Contract.Requires(y >= 0 && y < 9);
@@ -27,6 +28,7 @@ namespace Sudoku.Domain
             X = x;
             Y = y;
             Value = value;
+            Generated = generated;
         }
 
         /// <summary>
@@ -50,6 +52,13 @@ namespace Sudoku.Domain
         /// The value.
         /// </value>
         public int? Value { get; private set; }
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="GameMove"/> is generated.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if generated; otherwise, <c>false</c>.
+        /// </value>
+        public bool Generated { get; private set; }
 
         /// <summary>
         /// Possibles the values.
@@ -63,7 +72,7 @@ namespace Sudoku.Domain
             Contract.Ensures(Contract.Result<IEnumerable<int>>() != null);
             Contract.Ensures(Contract.Result<IEnumerable<int>>().All(x => x >= 1 && x <= 9));
 
-            var blockIndex = X / 3 * 3 + Y / 3 * 3;
+            var blockIndex = X / 3 + Y / 3 * 3;
             var allValues = Enumerable.Range(1, 9).ToList();
 
             var row = game.GetRow(Y);
